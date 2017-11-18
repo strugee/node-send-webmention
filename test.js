@@ -81,7 +81,6 @@ vows.describe('main module').addBatch({
 					assert.isObject(obj.res);
 				},
 				'we sent the right data': function(err, obj, body) {
-					console.log(body);
 					assert.isTrue(body.includes('example.com'));
 					assert.isTrue(body.includes('localhost'));
 				}
