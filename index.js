@@ -16,44 +16,61 @@
 'use strict';
 
 var getEndpoint = require('get-webmention-url'),
+    formurlencoded = require('form-urlencoded'),
     url = require('url'),
     http = require('http'),
     https = require('https'),
     pkg = require('./package');
 
 module.exports = function sendWebmention(source, target, ua, cb) {
-	var parsedSource, parsedTarget;
+	var finalSource, finalTarget, parsedTarget;
 	if (typeof source === 'string' && typeof target === 'string' && typeof ua === 'function') {
 		// source, target, cb
-		parsedSource = url.parse(source);
+		finalSource = url.parse(source);
 		parsedTarget = url.parse(target);
+		finalTarget = target;
 		cb = ua;
 		ua = undefined;
+	} else if (typeof source === 'string' && typeof target === 'string' && typeof ua === 'string' && typeof cb === 'function') {
+		// source, target, ua, cb
+		finalSource = source;
+		parsedTarget = url.parse(target);
+		finalTarget = target;
 	} else if (typeof source === 'object' && typeof target === 'function') {
 		// opts, cb
-		parsedSource = url.parse(source.source);
+		finalSource = source.source;
 		parsedTarget = url.parse(source.target);
+		finalTarget = source.target;
 		ua = source.ua;
 		cb = target;
-	} else if (typeof source === 'object' && typeof target === 'object' && typeof ua === 'function') {
-		// url.parse(source), url.parse(target), cb
-		parsedSource = source;
-		parsedTarget = target;
-		cb = ua;
-		ua = undefined;
-	} else if (typeof source === 'object' && typeof target === 'object' && typeof ua === 'string' && typeof cb === 'function') {
-		// url.parse(source), url.parse(target), ua, cb
-		parsedSource = source;
-		parsedTarget = target;		
 	} else {
 		// XXX better error message
 		throw new TypeError('couldn\'t understand arguments!');
 		return;
 	}
 
-	var headers = {'user-agent': ua || 'node.js/' + process.versions.node + ' send-webmention/' + pkg.version};
+	ua = ua || 'node.js/' + process.versions.node + ' send-webmention/' + pkg.version;
 
-	var client = target.protocol === 'http:' ? http : https;
+	getEndpoint({url: parsedTarget, ua: ua}, function(err, endpoint) {
+		if (err) {
+			cb(err);
+			return;
+		}
 
-	
-}
+		var client = target.protocol === 'http:' ? http : https;
+
+		parsedTarget.method = 'POST';
+		parsedTarget.headers = {'user-agent': ua};
+
+		var req = client.request(parsedTarget, function(res) {
+			cb(undefined, {
+				success: res.statusCode < 200 || res.statusCode >= 300,
+				res: res
+			});
+		});
+
+		req.on('error', cb);
+
+		req.end(formurlencoded({source: finalSource, target: finalTarget}));
+	});
+};
