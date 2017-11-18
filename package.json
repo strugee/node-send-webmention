@@ -1,0 +1,29 @@
+{
+  "name": "send-webmention",
+  "version": "1.0.0",
+  "description": "Send a Webmention",
+  "main": "index.js",
+  "dependencies": {
+    "get-webmention-url": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strugee/node-send-webmention.git"
+  },
+  "keywords": [
+    "webmention",
+    "federation",
+    "decentralization",
+    "indieweb"
+  ],
+  "author": "AJ Jordan <alex@strugee.net>",
+  "license": "LGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/strugee/node-send-webmention/issues"
+  },
+  "homepage": "https://github.com/strugee/node-send-webmention#readme"
+}
