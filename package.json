@@ -4,15 +4,17 @@
   "description": "Send a Webmention",
   "main": "index.js",
   "dependencies": {
+    "coveralls": "^3.0.0",
     "form-urlencoded": "^2.0.4",
-    "get-webmention-url": "^1.0.3"
+    "get-webmention-url": "^1.0.3",
+    "nyc": "^11.3.0"
   },
   "devDependencies": {
     "concat-stream": "^1.6.0",
     "perjury": "^1.1.0"
   },
   "scripts": {
-    "test": "perjury test.js"
+    "test": "nyc -r lcov perjury test.js"
   },
   "repository": {
     "type": "git",
