@@ -7,9 +7,12 @@
     "form-urlencoded": "^2.0.4",
     "get-webmention-url": "^1.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concat-stream": "^1.6.0",
+    "perjury": "^1.1.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "perjury test.js"
   },
   "repository": {
     "type": "git",
