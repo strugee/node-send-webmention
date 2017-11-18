@@ -26,7 +26,7 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 	var finalSource, finalTarget, parsedTarget;
 	if (typeof source === 'string' && typeof target === 'string' && typeof ua === 'function') {
 		// source, target, cb
-		finalSource = url.parse(source);
+		finalSource = source;
 		parsedTarget = url.parse(target);
 		finalTarget = target;
 		cb = ua;
@@ -51,20 +51,22 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 
 	ua = ua || 'node.js/' + process.versions.node + ' send-webmention/' + pkg.version;
 
-	getEndpoint({url: parsedTarget, ua: ua}, function(err, endpoint) {
+	getEndpoint({url: parsedTarget, ua: ua}, function(err, _endpoint) {
 		if (err) {
 			cb(err);
 			return;
 		}
 
-		var client = target.protocol === 'http:' ? http : https;
+		var endpoint = url.parse(_endpoint);
 
-		parsedTarget.method = 'POST';
-		parsedTarget.headers = {'user-agent': ua};
+		var client = endpoint.protocol === 'http:' ? http : https;
 
-		var req = client.request(parsedTarget, function(res) {
+		endpoint.method = 'POST';
+		endpoint.headers = {'user-agent': ua};
+
+		var req = client.request(endpoint, function(res) {
 			cb(undefined, {
-				success: res.statusCode < 200 || res.statusCode >= 300,
+				success: !(res.statusCode < 200 || res.statusCode >= 300),
 				res: res
 			});
 		});
