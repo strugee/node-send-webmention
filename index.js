@@ -57,6 +57,11 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 			return;
 		}
 
+		if (!_endpoint) {
+			cb(undefined, {success: false});
+			return;
+		}
+
 		var endpoint = url.parse(_endpoint);
 
 		var client = endpoint.protocol === 'http:' ? http : https;

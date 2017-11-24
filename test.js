@@ -27,7 +27,9 @@ vows.describe('main module').addBatch({
 
 			var server = http.createServer(function(req, res) {
 				res.statusCode = 202;
-				res.setHeader('Link', '</webmention>; rel="webmention"');
+				if (req.url !== '/no_link_header') {
+					res.setHeader('Link', '</webmention>; rel="webmention"');
+				}
 
 				if (req.url === '/webmention') {
 					req.pipe(concat(function (buf) {
@@ -83,6 +85,17 @@ vows.describe('main module').addBatch({
 				'we sent the right data': function(err, obj, body) {
 					assert.isTrue(body.includes('example.com'));
 					assert.isTrue(body.includes('localhost'));
+				}
+			},
+			'and we try sending a Webmention to a URL with no endpoint': {
+				topic: function(webmention) {
+					webmention('http://example.com/post', 'http://localhost:57891/no_link_header', this.callback);
+				},
+				'it works': function(err) {
+					assert.ifError(err);
+				},
+				'it returns failure': function(err, obj) {
+					assert.isFalse(obj.success);
 				}
 			}
 		}
