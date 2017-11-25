@@ -107,6 +107,96 @@ vows.describe('main module').addBatch({
 				'it returns failure': function(err, obj) {
 					assert.isFalse(obj.success);
 				}
+				// XXX no way to tell what User-Agent we send since we don't get the request object back
+			},
+			'and we try sending a Webmention to an unresponsive URL': {
+				topic: function(webmention) {
+					var cb = this.callback;
+
+					webmention('http://example.com/post', 'http://localhost:1', function(err, ret) {
+						if (ret) {
+							cb(new Error('unexpected success'));
+						} else {
+							cb(undefined, err);
+						}
+					});
+				},
+				'we get the underlying HTTP error back': function(err, reterr) {
+					assert.ifError(err);
+					assert.isTrue(reterr instanceof Error);
+					assert.equal(reterr.code, 'ECONNREFUSED');
+				}
+			},
+			'and we give the module two URL strings and a callback': {
+				topic: function(webmention) {
+					webmention('http://example.com/post', 'http://localhost:57891', this.callback);
+				},
+				'it works': function(err) {
+					assert.ifError(err);
+				},
+				'it returns success': function(err, obj) {
+					assert.isTrue(obj.success);
+				},
+				'we sent the default User-Agent': function(err, obj) {
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
+				}
+			},
+			'and we give the module two URL strings, a User Agent string and a callback': {
+				topic: function(webmention) {
+					webmention('http://example.com/post', 'http://localhost:57891', 'foobar/1.0.0', this.callback);
+				},
+				'it works': function(err) {
+					assert.ifError(err);
+				},
+				'it returns success': function(err, obj) {
+					assert.isTrue(obj.success);
+				},
+				'we sent the right User-Agent': function(err, obj) {
+					assert.equal(obj.res.headers['x-seen-ua'], 'foobar/1.0.0');
+				}
+			},
+			'and we give the module an options object and a callback': {
+				topic: function(webmention) {
+					webmention({source: 'http://example.com/post',
+					            target: 'http://localhost:57891'},
+					           this.callback);
+				},
+				'it works': function(err) {
+					assert.ifError(err);
+				},
+				'it returns success': function(err, obj) {
+					assert.isTrue(obj.success);
+				},
+				'we sent the default User-Agent': function(err, obj) {
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
+				}
+			},
+			'and we give the module an options object with a UA string and a callback': {
+				topic: function(webmention) {
+					webmention({source: 'http://example.com/post',
+					            target: 'http://localhost:57891',
+					            ua: 'foobar/1.0.0'},
+					           this.callback);
+				},
+				'it works': function(err) {
+					assert.ifError(err);
+				},
+				'it returns success': function(err, obj) {
+					assert.isTrue(obj.success);
+				},
+				'we sent the right User-Agent': function(err, obj) {
+					assert.equal(obj.res.headers['x-seen-ua'], 'foobar/1.0.0');
+				}
+			},
+			'and we give the module nonsensical arguments': {
+				topic: function(webmention) {
+					return webmention.bind(this, 'blah blah blah!', this.callback);
+				},
+				'it doesn\'t work': function(err, func) {
+					assert.throws(func);
+				}
 			}
 		}
 	}
