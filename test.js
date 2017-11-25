@@ -20,6 +20,8 @@ var vows = require('perjury'),
     http = require('http'),
     concat = require('concat-stream');
 
+// XXX test status code behavior more explicitly
+
 vows.describe('main module').addBatch({
 	'When we set up a server': {
 		topic: function() {
