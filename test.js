@@ -37,6 +37,12 @@ vows.describe('main module').addBatch({
 				}
 
 				if (req.url === '/webmention') {
+					if (req.headers['content-type'] !== 'application/x-www-form-urlencoded') {
+						res.statusCode = 400;
+						res.end('Bad Content-Type');
+						return;
+					}
+
 					req.pipe(concat(function (buf) {
 						res.end(buf.toString());
 					})).on('error', function(err) { throw err; });

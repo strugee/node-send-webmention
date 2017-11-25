@@ -66,7 +66,7 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 		var client = endpoint.protocol === 'http:' ? http : https;
 
 		endpoint.method = 'POST';
-		endpoint.headers = {'user-agent': ua};
+		endpoint.headers = {'user-agent': ua, 'content-type': 'application/x-www-form-urlencoded'};
 
 		var req = client.request(endpoint, function(res) {
 			cb(undefined, {
