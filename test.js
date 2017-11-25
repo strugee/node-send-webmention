@@ -61,6 +61,9 @@ vows.describe('main module').addBatch({
 			topic: function() {
 				return require('./index');
 			},
+			'it works': function(err) {
+				assert.ifError(err);
+			},
 			'and we send a Webmention': {
 				topic: function(webmention) {
 					var cb = this.callback;
