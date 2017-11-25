@@ -27,6 +27,9 @@ vows.describe('main module').addBatch({
 
 			var server = http.createServer(function(req, res) {
 				res.statusCode = 202;
+
+				res.setHeader('X-Seen-UA', req.headers['user-agent']);
+
 				if (req.url !== '/no_link_header') {
 					res.setHeader('Link', '</webmention>; rel="webmention"');
 				}
@@ -85,6 +88,10 @@ vows.describe('main module').addBatch({
 				'we sent the right data': function(err, obj, body) {
 					assert.isTrue(body.includes('example.com'));
 					assert.isTrue(body.includes('localhost'));
+				},
+				'we sent the default User-Agent': function(err, obj) {
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
 				}
 			},
 			'and we try sending a Webmention to a URL with no endpoint': {
