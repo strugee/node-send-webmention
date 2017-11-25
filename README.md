@@ -50,6 +50,61 @@ If everything goes (mostly) okay, you'll get the object back. The object will ha
 
 If an error is encountered during processing (this mostly means HTTP errors), you'll get back an `Error` instead. Note that a page not having a Webmention endpoint or a non-2xx response will _not_ result in an `Error`, but they _will_ result in `success` being set to `false`.
 
+## Examples
+
+```js
+var webmention = require('send-webmention'),
+    concat = require('concat-stream');
+
+webmention('https://example.com/index.html', 'https://example.org/a_post', function(err, obj) {
+    if (err) throw err;
+
+    if (obj.success) {
+        obj.res.pipe(function(buf) {
+            console.log('Success! Got back response:', buf.toString());
+        });
+    } else {
+        console.log('Failure :(');
+    }
+});
+```
+
+```js
+var webmention = require('send-webmention'),
+    concat = require('concat-stream');
+
+webmention('https://example.com/index.html', 'https://example.org/a_post', 'webmention-5000/1.0.0', function(err, obj) {
+    // Same thing
+});
+```
+
+```js
+var webmention = require('send-webmention'),
+    concat = require('concat-stream');
+
+webmention({
+               source: 'https://example.com/index.html',
+               target: 'https://example.org/a_post'
+           },
+           function(err, obj) {
+               // Same thing
+           });
+```
+
+```js
+var webmention = require('send-webmention'),
+    concat = require('concat-stream');
+
+webmention({
+               source: 'https://example.com/index.html',
+               target: 'https://example.org/a_post',
+               ua: 'webmention-5000/1.0.0'
+           },
+           function(err, obj) {
+               // Same thing
+           });
+```
+
 ## Security considerations
 
 This module does absolutely nothing to address the Webmention spec's [security considerations section][]. You need to take care of this yourself.
