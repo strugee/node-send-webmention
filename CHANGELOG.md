@@ -2,7 +2,7 @@
 
 `send-webmention` adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.0 - Future
+## 1.0.0 - 2017-11-24
 
 ### Added
 
