@@ -46,7 +46,7 @@ The module exports a function with several forms:
 
 The callback function will receive either an error as the first argument or an object as the second argument (never both).
 
-If everything goes (mostly) okay, you'll get the object back. The object will have one or two keys, `success` (which is a `Boolean`) and `res` (which is an instance of `http.IncomingMessage` and isn't included only if the target had a Webmention endpoint that we POSTed to). `success` will be `true` if the Webmention was successfully delivered and the response used a 2xx status code. Otherwise it will be `false`.
+If everything goes (mostly) okay, you'll get the object back. The object will have one or two keys, `success` (which is a `Boolean`) and `res` (which is an instance of `http.IncomingMessage` and is included only if the target had a Webmention endpoint that we POSTed to). `success` will be `true` if the Webmention was successfully delivered and the response used a 2xx status code. Otherwise it will be `false`.
 
 If an error is encountered during processing (this mostly means HTTP errors), you'll get back an `Error` instead. Note that a page not having a Webmention endpoint or a non-2xx response will _not_ result in an `Error`, but they _will_ result in `success` being set to `false`.
 
