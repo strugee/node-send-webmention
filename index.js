@@ -46,7 +46,6 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 	} else {
 		// XXX better error message
 		throw new TypeError('couldn\'t understand arguments!');
-		return;
 	}
 
 	ua = ua || 'node.js/' + process.versions.node + ' send-webmention/' + pkg.version;
