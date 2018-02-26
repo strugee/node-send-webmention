@@ -4,13 +4,13 @@
   "description": "Send a Webmention",
   "main": "index.js",
   "dependencies": {
-    "coveralls": "^3.0.0",
     "form-urlencoded": "^2.0.4",
-    "get-webmention-url": "^1.0.3",
-    "nyc": "^11.3.0"
+    "get-webmention-url": "^1.0.3"
   },
   "devDependencies": {
     "concat-stream": "^1.6.0",
+    "coveralls": "^3.0.0",
+    "nyc": "^11.4.1",
     "perjury": "^1.1.0"
   },
   "scripts": {
