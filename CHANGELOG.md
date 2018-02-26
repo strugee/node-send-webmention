@@ -2,6 +2,12 @@
 
 `send-webmention` adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.2 - 2018-02-25
+
+### Fixed
+
+* `coveralls` and `nyc` are no longer marked as production dependencies instead of dev dependencies
+
 ## 1.0.1 - 2017-11-24
 
 ### Fixed
