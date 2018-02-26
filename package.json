@@ -1,6 +1,6 @@
 {
   "name": "send-webmention",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Send a Webmention",
   "main": "index.js",
   "dependencies": {
