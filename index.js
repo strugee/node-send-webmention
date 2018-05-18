@@ -63,7 +63,7 @@ module.exports = function sendWebmention(source, target, ua, cb) {
 
 		var endpoint = url.parse(_endpoint);
 
-		var client = endpoint.protocol === 'http:' ? http : https;
+		var client = endpoint.protocol === 'http:' ? http : /* istanbul ignore next */ https;
 
 		endpoint.method = 'POST';
 		endpoint.headers = {'user-agent': ua, 'content-type': 'application/x-www-form-urlencoded'};
