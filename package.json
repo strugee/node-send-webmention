@@ -14,7 +14,7 @@
     "perjury": "^1.1.0"
   },
   "scripts": {
-    "test": "nyc -r lcov perjury test.js"
+    "test": "nyc -r text -r lcov perjury test.js"
   },
   "repository": {
     "type": "git",
