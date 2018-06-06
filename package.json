@@ -4,7 +4,7 @@
   "description": "Send a Webmention",
   "main": "index.js",
   "dependencies": {
-    "form-urlencoded": "^2.0.4",
+    "form-urlencoded": "^3.0.0",
     "get-webmention-url": "^1.0.3"
   },
   "devDependencies": {
