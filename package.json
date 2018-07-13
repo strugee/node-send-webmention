@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "concat-stream": "^1.6.0",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.2",
     "nyc": "^12.0.2",
     "perjury": "^1.1.0"
   },
