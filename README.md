@@ -111,7 +111,7 @@ This module does absolutely nothing to address the Webmention spec's [security c
 
 ## Version support
 
-Supports Node 4+.
+Supports Node 6+.
 
 ## Author
 
