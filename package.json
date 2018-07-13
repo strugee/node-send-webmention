@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "form-urlencoded": "^3.0.0",
-    "get-webmention-url": "^1.0.3"
+    "get-webmention-url": "^2.0.0"
   },
   "devDependencies": {
     "concat-stream": "^1.6.0",
