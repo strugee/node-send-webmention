@@ -16,7 +16,9 @@
 'use strict';
 
 var getEndpoint = require('get-webmention-url'),
-    formurlencoded = require('form-urlencoded'),
+    // Annoyingly this package just *had* to be fancy and switch to ES6 `export`.
+    // That's why I'm forced to put this ugly-ass `.default` stupidity here.
+    formurlencoded = require('form-urlencoded').default,
     url = require('url'),
     http = require('http'),
     https = require('https'),
