@@ -2,6 +2,16 @@
 
 `send-webmention` adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 - 2018-07-12
+
+### Changed
+
+* Dependency upgrades
+
+### Breaking
+
+* Drop Node 4 support
+
 ## 1.0.2 - 2018-02-25
 
 ### Fixed
