@@ -102,7 +102,7 @@ vows.describe('main module').addBatch({
 				},
 				'we sent the default User-Agent': function(err, obj) {
 					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
-					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/2'));
 				}
 			},
 			'and we try sending a Webmention to a URL with no endpoint': {
@@ -147,7 +147,7 @@ vows.describe('main module').addBatch({
 				},
 				'we sent the default User-Agent': function(err, obj) {
 					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
-					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/2'));
 				}
 			},
 			'and we give the module two URL strings, a User Agent string and a callback': {
@@ -178,7 +178,7 @@ vows.describe('main module').addBatch({
 				},
 				'we sent the default User-Agent': function(err, obj) {
 					assert.isTrue(obj.res.headers['x-seen-ua'].includes('node.js/'));
-					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/1'));
+					assert.isTrue(obj.res.headers['x-seen-ua'].includes('send-webmention/2'));
 				}
 			},
 			'and we give the module an options object with a UA string and a callback': {
