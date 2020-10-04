@@ -11,10 +11,10 @@
     "concat-stream": "^2.0.0",
     "coveralls": "^3.0.2",
     "nyc": "^15.1.0",
-    "perjury": "^1.1.0"
+    "vows": "^1.0.0-alpha.1"
   },
   "scripts": {
-    "test": "nyc -r text -r lcov perjury test.js"
+    "test": "nyc -r text -r lcov vows test.js"
   },
   "repository": {
     "type": "git",

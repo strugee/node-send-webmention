@@ -15,7 +15,7 @@
 
 'use strict';
 
-var vows = require('perjury'),
+var vows = require('vows'),
     assert = vows.assert,
     http = require('http'),
     concat = require('concat-stream');
