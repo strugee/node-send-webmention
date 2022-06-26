@@ -8,7 +8,7 @@ Send a Webmention.
 
 Originally written for similar reasons as [`get-webmention-url`][] - [`webmention-client`][] was way overcomplicated and seemed unmaintained.
 
-This project is, however, API-compatible with @connrs' module. The original was extremely sensible in that regard.
+This project is, however, API-compatible with @connrs' module.
 
 ## Install
 
