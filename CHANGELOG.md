@@ -2,6 +2,12 @@
 
 `send-webmention` adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0 - future
+
+### Added
+
+* Node 14, 16 and 18 are now supported
+
 ## 2.0.0 - 2018-07-12
 
 ### Changed
